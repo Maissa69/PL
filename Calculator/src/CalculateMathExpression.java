@@ -45,8 +45,8 @@ public class CalculateMathExpression {
             System.out.println(p);
         }
 
-        var pp = SimplexAlgo.getPoint(0,Coefs.get(0),B.get(0));
-        System.out.println(pp.Y);
+       /* var pp = SimplexAlgo.getPoint(0,Coefs.get(0),B.get(0));
+        System.out.println(pp.Y);*/ // Comment Point
     }
 
 
