@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 
 public class SimplexAlgo {
+    private int numberOfIteration ;
     private double[] Solutions;
     private boolean forMax;
     private final int LINES;
@@ -77,6 +78,7 @@ public class SimplexAlgo {
     private void UpdateMatrix(){
         double[] Pivot = Pivot();
         double[][] newMat = new double[LINES+1][COLUMNS+1];
+        System.out.print("Pivot : \t");
         for (var v :
                 Pivot) {
             System.out.print(v + "\t");
@@ -96,12 +98,13 @@ public class SimplexAlgo {
         }
 
         Matrix = newMat;
-        Solutions[row] = Matrix[row][COLUMNS];
-        for (int i = 0; i < Solutions.length; i++) {
-            if (Solutions[i] != 0){
-                Solutions[i] = Matrix[i][COLUMNS];
+            Solutions[(int)Pivot[2]] = Matrix[(int)Pivot[1]][COLUMNS];
+            for (int i = 0; i < Solutions.length; i++) {
+                if (Solutions[i] != 0 && i != (int)Pivot[2]){
+                    Solutions[i] = Solutions[i] - Matrix[(int)Pivot[1]][COLUMNS] * Matrix[i][(int)Pivot[2]] / Pivot[0];
+                }
             }
-        }
+
     }
     private boolean isAllNegatif(double[] table){
         for (var v : table)
@@ -117,7 +120,7 @@ public class SimplexAlgo {
         double[] Bdivided = new double[B.size()];
 
         for (int i = 0; i < Bdivided.length; i++) {
-            Bdivided[i] = B.get(i)/Matrix[i][pivotColumn];
+            Bdivided[i] = Matrix[i][COLUMNS]/Matrix[i][pivotColumn];
         }
 
         int[] MinMaxRow = getMinMixOfTable(Bdivided);
